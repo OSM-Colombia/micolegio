@@ -1,141 +1,222 @@
 <!DOCTYPE html>
 <!--
- Esta es la única página de este sitio. Por medio de JavaScript se cambia la estructura ocultando
- y visualizando otro campos.
+ Esta es la única página de este sitio. Por medio de JavaScript se cambia la
+ estructura ocultando y visualizando otro campos.
  Está basado en OnOSM.org
 
- Versión 2021-10-30
+ Versión 2025-03-15
 -->
 <html>
-    <head>
-        <title>MaptimeBogota: Agrega tu establecimiento a OpenStreetMap</title>
-        <meta name="description" content="Rápido y fácilmente envía los datos de tu negocio a OpenStreetMap"/>
-        <meta http-equiv='content-type' content='text/html; charset=utf-8' />
-        <link rel='stylesheet' type='text/css' href='css/style.css' />
-        <link rel='stylesheet' type='text/css' href='css/site.css' />
-        <link rel='stylesheet' type='text/css' href='https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.css' />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.0/leaflet.css" />
-        <!--[if lte IE 8]>
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.0/leaflet.ie.css" />
-        <![endif]-->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.0/leaflet.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.full.js"></script>
 
-        <meta id="viewport" name="viewport" content ="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    </head>
-    <body>
-        <div class='container pad2 margin2 col8'>
-            <div class="pad2">
-                <a href="https://maptimebogota.github.io/minegocio/">
-                    <img src="img/osm.png" class="fl mr logo" alt="OpenStreetMap" />
-                    <h2 class="app-title">Agrega tu establecimiento a OpenStreetMap</h2>
-                </a>
-                <img src="img/MaptimeBogotaLogo.png" class="fl mr logo" alt="MaptimeBogota" />
-                <p>MiNegocio es una herramienta para solicitar la inserción o corrección de un establecimiento de Bogotá en el mapa <a href="http://osm.org">OpenStreetMap</a>.</p>
-                <p>OpenStreetMap es un mapa global y abierto, utilizado por millones de personas en todo el mundo para navegar y encontrar establecimientos.</p>
-                <p>¡Añadir al mapa tu local comercial, punto de venta, negocio, tienda o comercio es fácil y gratuito!<br /> Solo tienes que llenar este formulario de tres pasos.</p>
+<head>
+    <title>OSM Colombia: Agrega tu establecimiento educativo en OpenStreetMap</title>
+    <meta name="description" content="Envía los datos de tu colegio o escuela rápida y fácilmente a OpenStreetMap" />
+    <meta http-equiv='content-type' content='text/html; charset=utf-8' />
+    <link rel='stylesheet' type='text/css' href='css/style.css' />
+    <link rel='stylesheet' type='text/css' href='css/site.css' />
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <meta id="viewport" name="viewport"
+        content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+</head>
+
+<body>
+    <div class='container pad2 margin2 col8'>
+        <div class="pad2">
+            <a href="https://osm-colombia.github.io/micolegio/">
+                <h2 class="app-title">Agrega tu escuela o colegio a OpenStreetMap</h2>
+            </a>
+            <img src="img/osm-colombia.png" class="fl mr logo" alt="OpenStreetMap" width="10%" />
+            <p><i>MiColegio</i> es una herramienta para solicitar la inserción o corrección de un establecimiento
+                educativo de Colombia en el mapa <a
+                    href="https://www.openstreetmap.org/#map=6/4.60/-73.39">OpenStreetMap</a>.</p>
+            <p>OpenStreetMap es un mapa global y abierto, utilizado por millones de personas en todo el mundo. Tu
+                colegio o escuela también puede aparecer en este mapa.</p>
+            <p>Añadir al mapa tu institución educativa es fácil y gratuito. Solo tienes que llenar este
+                formulario de tres pasos.</p>
+        </div>
+        <!--
+        Los tres pasos se definen en la URL, en la variable location.hash:
+        - Vacío - Para dar la ubicación.
+        - details - Para diligenciar los detalles.
+        - done - Donde se crea la nota.
+        -->
+
+        <div class='col12 on-1 steps clearfix'>
+            <div class='col4 center pad1 step-1'>
+                <a href='#location'>Paso 1: Ubicación</a>
+            </div>
+            <div class='col4 center pad1 step-2'>
+                <strong onclick="check_coordinates()">Paso 2: Información</strong>
+            </div>
+            <div class='col4 center pad1 step-3'>
+                <strong>Paso 3: Completado</strong>
+            </div>
+        </div>
+
+        <!-- Paso 1: Ubicar la institución. -->
+        <div class='col12' id='address-step'>
+            <div class='center pad2'>
+                <span id='instructions'>Para comenzar, indícanos el municipio o departamento dónde está tu
+                    establecimiento educativo.</span>
+            </div>
+            <div class='col12'>
+                <div class='pad1'>
+                    <form id='find'>
+                        <input class='col8' id='addressToFind'
+                            placeholder='Aquí escribe el municipio o departamento.' />
+                        <button class='col4' id='findme'>Buscar</button>
+                        <br />
+                        También puedes activar la opción de <a id="use_my_location" href="#" onclick="return false">usar
+                            mi ubicación actual</a> (requiere autorización del navegador) la cual te ubicará
+                        directamente en el mapa.
+                    </form>
+                </div>
             </div>
 
-            <div class='col12 on-1 steps clearfix'>
-                <div class='col4 center pad1 step-1'>
-                    <a href='#location'>Paso 1: Ubicación</a>
-                </div>
-                <div class='col4 center pad1 step-2'>
-                    <strong onclick="check_coordinates()">Paso 2: Información</strong>
-                </div>
-                <div class='col4 center pad1 step-3'>
-                    <strong>Paso 3: Completado</strong>
-                </div>
-            </div>
-
-            <div class='col12' id='address-step'>
-                <div class='center pad2'>
-                    <span id='instructions'>Para comenzar, indícanos dónde está tu establecimiento. Para esto, puedes poner la dirección (por ejemplo: Carrera 24 # 53-05).<br />
-                     Si no te la logra ubicar, puedes indicar el nombre de la localidad, de la UPZ o del barrio, y luego mueves la chincheta.<br />
-                     <b>Nota:</b> Los negocios virtuales que no tienen un establecimiento físico no se pueden agregar al mapa.<br />
-                     Esta página solo permite adicionar establecimientos en Bogotá; para otras ciudades puedes usar <a href="http://onosm.org">OnOSM.org</a>.</span>
-                </div>
-                <div class='col12'>
-                    <div class='pad1'>
-                        <form id='find'>
-                            <input class='col8' id='address' placeholder='Aquí escribe la dirección, localidad, UPZ o barrio. Como: Galerías'/>
-                            <button class='col4' id='findme'>Buscar</button>
-                            <br />
-                            También puedes activar la opción de <a id="use_my_location" href="#" onclick="return false">usar mi ubicación actual</a> (requiere autorización del navegador) pero te ubicará directamente en el mapa.
-                        </form>
-                    </div>
-                </div>
-
-                <div class='center pad2'>
-                    <p id="couldnt-find" style='display: none;'><strong>No pudimos encontrar esta ubicación.</strong> Intenta buscar por el nombre de calle, barrio, UPZ o localidad, sin indicar la dirección completa.</p>
-                </div>
-                <div class='center pad2'>
-                    <p id="invalid-location" style='display: none;'>La ubicación actualmente no está definida.</p>
-                </div>
-                <div class='col12'>
-                    <div class='col12' id='findme-map'></div>
-                    <p id="success" class="center" style='display: none; margin-bottom: 500px;'></p>
-
-                </div>
-            </div>
-
-            <div class='col12 hide' id='collect-data-step'>
-                <p>Como ya ubicaste bien tu establecimiento sobre el mapa, ahora puedes indicar sus detalles. Los valores en gris en los campos son ejemplos.</p>
-                <div class='col12'>
-                    <div class='clearfix col12'>
-                        <label for='category'>Tipo de establecimiento:</label>
-                        <select style='width: 600px;' id='category' multiple='multiple' data-placeholder='Escoge una o varias categorías...' class='col10'>
-                        </select>
-                    </div>
-                    <div class='col6'>
-                        <label for='name'>Nombre del establecimiento (Obligatorio):</label>
-                        <input id='name' type='text' placeholder='Mi Fruver'/>
-                        <label for='phone'>Número de teléfono:</label>
-                        <input id='phone' type='text' placeholder='601 2345678'/>
-                        <label for='website'>Página web:</label>
-                        <input id='website' type='text' placeholder='mifruver.co'/>
-                        <label for='opening_hours'>Horario de apertura:</label>
-                        <input id='opening_hours' type='text' placeholder='De lunes a viernes de 10am a 8pm'/>
-                    </div>
-                    <div class='col6'>
-                        <label for='businessaddress'>Dirección (Obligatorio):</label>
-                        <input id='businessaddress' type='text' placeholder='Avenida Carrera 12 # 34-56'/>
-                        <label for='email'>Correo electrónico:</label>
-                        <input id='email' type='text' placeholder='contacto@mifruver.co'/>
-                        <label for='twitter'>Twitter:</label>
-                        <input id='twitter' type='text' placeholder='@MiFruver'/>
-                        <label for='facebook'>Facebook:</label>
-                        <input id='facebook' type='text' placeholder='https://www.facebook.com/MiFruver'/>
-                    </div>
-                    <div class='clearfix col12'>
-                        <label for='notes'>Notas adicionales:</label>
-                        <input id='notes' type='text' placeholder='Algo más a agregar, otra red social'/>
-                    </div>
-                    <div class='clearfix col12'>
-                        <h5><p class='col12' id="form-invalid"></p></h5>
-                        <h4><button class='col12' id='collect-data-done'>Completado</button></h4>
-                    </div>
-                </div>
-                <p>Nota: Los datos del Fruver son de ejemplo, y se borran automáticamente cuando digitas tus propios datos.</p>
-                <p>Si tu establecimiento solo tiene algunos datos de estos, ¡no importa! Para crear la solicitud solo se requiere el nombre del establecimiento y su dirección, lo demás es opcional.</p>
-            </div>
-
-            <div class='col12 pad2 hide' id='confirm-step'>
-                <p><strong>¡Gracias por aportar datos al mapa!</strong> Un voluntario de OpenStreetMap agregará prontamente tus datos al mapa.</p>
-                <p><span>Tus datos quedaron en una nota dentro del sistema. En el siguiente enlace puedes ver la nota recién creada y estar atento a sus actualizaciones:</span><span id='linkcoords'>&nbsp;</span></p>
-                <p>¿Sabías que tu mismo puedes agregar datos al mapa y evitar la espera?<br /> Es muy fácil comenzar a <a href="http://openstreetmap.org/edit">editar OpenStreetMap</a> en tu navegador. Visita la página <a href='https://learnosm.org/es/'>learnosm.org</a> o participa en un evento de <a href='http://maptime.io/bogota/'>MaptimeBogota</a> (<a href="https://www.meetup.com/maptime-bogota-colombia-osm/">MeetUps</a>).</p>
-                <p><span>¿Quieres agregar otro establecimiento?</span>&nbsp;Vuelve a <a href="#location" onclick="clearFields()">la pantalla inicial.</a>
+            <!-- Mensaje de error cuando no se puede ubicar la dirección. -->
+            <div class='center pad2'>
+                <p id="couldnt-find" style='display: none;'><strong>No pudimos encontrar esta dirección.</strong>
+                    Intenta buscar por el nombre de calle, barrio, UPZ o localidad, sin indicar la dirección completa.
                 </p>
             </div>
+            <!-- Mensaje de error cuando no hay una ubicación definida - sin coordenadas. -->
+            <div class='center pad2'>
+                <p id="invalid-location" style='display: none;'>La ubicación no está definida.</p>
+            </div>
+            <!-- Mensaje de alerta indicando que sí se hay una ubicación válida. -->
+            <div class='col12'>
+                <div class='col12' id='findme-map'></div>
+                <p id="success" class="center" style='display: none; margin-bottom: 500px;'></p>
 
-            <footer>
-                <p class="center">Si tienes alguna pregunta, puedes escribirnos a <a href='mailto:maptimebogota@gmail.com'>maptimeBogota@gmail.com</a></p>
-             <p class="center">Puedes seguirnos en <a href="https://twitter.com/MaptimeBogota">Twitter</a> o <a href="https://www.instagram.com/maptimebogota/">Instagram</a>.</p>
-                <p class="center">Código fuente disponible en <a alt="Repositorio código" href='https://github.com/MaptimeBogota/notes'>GitHub</a>. Esta página es una bifurcación de <a alt="Sitio original" href='https://www.onosm.org/'>OnOSM.org</a>.</p>
-            </footer>
+            </div>
         </div>
-        <script src='js/site.js'></script>
-    </body>
-</html>
 
+        <!-- Paso 2: Llenar los datos de la institución. -->
+        <div class='col12 hide' id='collect-data-step'>
+            <p>Como ya ubicaste tu establecimiento educativo sobre el mapa, ahora puedes indicar sus detalles. Los
+                valores en gris en los campos son ejemplos.</p>
+            <div class='col12'>
+                <div class='col6'>
+                    <label for='institutionName'>Nombre de la institución (Obligatoria):</label>
+                    <input id='institutionName' type='text' placeholder='Institución Educativa Rafael Uribe Uribe' />
+                    <label for='institutionPhone'>Número de teléfono:</label>
+                    <input id='institutionPhone' type='text' placeholder='608 6388262' />
+                    <label for='website'>Página web:</label>
+                    <input id='website' type='text' placeholder='http://RafaelUribeUribePore.edu.co' />
+                    <br />
+                    Tipo de operador:
+                    <input id='public' type='radio' name='operator_type' value="public" />
+                    <label for='public'>Público</label>.
+                    <input id='private' type='radio' name='operator_type' value="private" />
+                    <label for='private'>Privado</label>.
+                    <br />
+                    <label for='operator'>Nombre operador:</label>
+                    <input id='operator' type='text' placeholder='Secretaría de Educación de Casanare' />
+                    <br />
+                    <label for='min_age'>Edad mínima del estudiante (años):</label>
+                    <input id='min_age' type='text' placeholder='4' />
+                    <br />
+                    <label for='max_age'>Edad máxima del estudiante (años):</label>
+                    <input id='max_age' type='text' placeholder='18' />
+                    <br />
+                    Calendario académico:
+                    <input id="calendarioA" type="radio" name="service_times:ref:CO" value="A" />
+                    <label for='calendarioA'>Calendario A.</label>
+                    <input id="calendarioB" type="radio" name="service_times:ref:CO" value="B" />
+                    <label for='calendarioB'>Calendario B.</label>
+                    <br />
+                    <label for='religion'>Si tiene enfoque religioso, ¿cuál religión?:</label>
+                    <input id='religion' type='text' placeholder='Católica' />
+                </div>
+                <div class='col6'>
+                    <label for='institutionAddress'>Dirección completa con municipio (Obligatoria):</label>
+                    <input id='institutionAddress' type='text' placeholder='Calle 4A # 17-40, Pore, Casanare' />
+                    <br />
+                    <label for='institutionEmail'>Correo electrónico:</label>
+                    <input id='institutionEmail' type='text' placeholder='contacto@RafaelUribeUribePore.edu.co' />
+                    <br />
+                    Grados:
+                    <input id="level1" type="checkbox" name="isced:level" value="0" />
+                    <label for='level1'>Primera infancia o Preescolar</label>.
+                    <input id="level3" type="checkbox" name="isced:level" value="1" />
+                    <label for='level3'>Básica primaria</label>.
+                    <input id="level4" type="checkbox" name="isced:level" value="2" />
+                    <label for='level4'>Básica secundaria</label>.
+                    <input id="level5" type="checkbox" name="isced:level" value="3" />
+                    <label for='level5'>Media</label>.
+                    <input id="level6" type="checkbox" name="isced:level" value="4" />
+                    <label for='level6'>Normalista</label>.
+                    <br />
+                    Género de los estudiantes:
+                    <input id="female" type="checkbox" name="gender" value="yes" />
+                    <label for='female'>Femenino</label>.
+                    <input id="male" type="checkbox" name="gender" value="yes" />
+                    <label for='male'>Masculino</label>.
+                    <br />
+                    ¿Se paga matrícula?:
+                    <input id="fee" type="checkbox" name="fee" value="yes" />
+                    <label for='fee'>Si se paga matrícula.</label>.
+                    <br />
+                    <label for='language'>Si se considera un colegio bilingüe, con qué idioma:</label>
+                    <input id='language' type='text' placeholder='inglés' />
+                    <br />
+                    <label for='wikipedia'>¿El colegio o escuela tiene un artículo de wikipedia?</label>
+                    <input id='wikipedia' type='text' placeholder='Colegio Rafael Uribe Uribe (Pore)' />
+                    <br />
+                    <label for='wikidata'>¿El colegio o escuela tiene una entrada en wikidata?</label>
+                    <input id='wikidata' type='text' placeholder='Q116243968' />
+                </div>
+                <div class='clearfix col12'>
+                    <label for='notes'>Notas adicionales:</label>
+                    <input id='notes' type='text' placeholder='Algo más a agregar, otra red social' />
+                </div>
+                <div class='clearfix col12'>
+                    <h5>
+                        <p class='col12' id="form-invalid"></p>
+                    </h5>
+                    <h4><button class='col12' id='collect-data-done'>Completado</button></h4>
+                </div>
+            </div>
+            <p>Nota: Los datos del colegio en color gris son de ejemplo, y se borran automáticamente cuando digitas tus
+                propios datos.</p>
+            <p>Si no tienes todos los datos de tu institución, ¡no importa! Para crear la solicitud solo se requiere el
+                nombre y su dirección, lo demás es opcional.</p>
+        </div>
+
+        <!-- Paso 3: Crear la nota y mostrar un mensaje que se creó. -->
+        <div class='col12 pad2 hide' id='confirm-step'>
+            <p><strong>¡Gracias por aportar datos al mapa!</strong> Un voluntario de OpenStreetMap pronto agregará tu
+                instutición al mapa.</p>
+            <p><span>Tus datos quedaron en una nota dentro del sistema. En el siguiente enlace puedes ver la nota recién
+                    creada y estar atento a sus actualizaciones:</span><span id='linkcoords'>&nbsp;</span></p>
+            <p>¿Sabías que tu mismo puedes agregar datos al mapa y evitar la espera?<br /> Es muy fácil comenzar a <a
+                    href="http://openstreetmap.org/edit">editar OpenStreetMap</a> en tu navegador. Visita la página <a
+                    href='https://learnosm.org/es/'>learnosm.org</a>.</p>
+            <p><span>¿Quieres agregar otro establecimiento?</span>&nbsp;Vuelve a <a href="#location"
+                    onclick="clearFields()">la pantalla inicial.</a>
+            </p>
+        </div>
+
+        <footer>
+            <p class="center">Si tienes alguna pregunta, puedes escribirnos a <a
+                    href='mailto:inbox@ac3.org.co'>inbox@ac3.org.co</a></p>
+            <p class="center">Puedes seguirnos en <a href="https://www.linkedin.com/company/osmcolombia/">LinkedIn</a>,
+                <a href="https://twitter.com/OSM_Colombia">X/Twitter</a> o <a
+                    href="https://www.instagram.com/OSM_Colombia/">Instagram</a>.
+            </p>
+            <p class="center">Código fuente disponible en <a alt="Repositorio código"
+                    href='https://github.com/OSM-Colombia/micolegio'>GitHub</a>. Esta página es una bifurcación de <a
+                    alt="Sitio original" href='https://www.onosm.org/'>OnOSM.org</a>.</p>
+        </footer>
+    </div>
+    <script src='js/site.js'></script>
+</body>
+
+</html>
