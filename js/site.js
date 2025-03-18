@@ -223,7 +223,8 @@ $("#collect-data-done").click(function () {
         "Revisar school=*.\n" +
         "Adaptar grades=*.\n" +
         "En el caso de religión, adaptar denomination=*.\n" +
-        "#OSM-Colombia https://osm-colombia.github.io/micolegio/\n",
+        "#OSM-Colombia https://osm-colombia.github.io/micolegio/\n"+
+        "#AC3 #CO\n",
         latlon = findme_marker.getLatLng(),
         note_data = {
             lat: latlon.lat,

@@ -34,12 +34,14 @@
             </a>
             <img src="img/osm-colombia.png" class="fl mr logo" alt="OpenStreetMap" width="10%" />
             <p><i>MiColegio</i> es una herramienta para solicitar la inserción o corrección de un establecimiento
-                educativo de Colombia en el mapa <a
+                educativo de <a href="https://wiki.openstreetmap.org/wiki/ES:Colombia">Colombia</a> en el mapa <a
                     href="https://www.openstreetmap.org/#map=6/4.60/-73.39">OpenStreetMap</a>.</p>
             <p>OpenStreetMap es un mapa global y abierto, utilizado por millones de personas en todo el mundo. Tu
                 colegio o escuela también puede aparecer en este mapa.</p>
-            <p>Añadir al mapa tu institución educativa es fácil y gratuito. Solo tienes que llenar este
-                formulario de tres pasos.</p>
+            <p>Añadir al mapa tu institución educativa es fácil, gratuito e innovador. Solo tienes que llenar este
+                formulario de tres pasos y los voluntarios crearán tu <a
+                    href="https://wiki.openstreetmap.org/wiki/ES:Colombia/Gu%C3%ADa_para_mapear/sitios_educativos">educativa
+                    en el mapa</a>.</p>
         </div>
         <!--
         Los tres pasos se definen en la URL, en la variable location.hash:
@@ -56,7 +58,7 @@
                 <strong onclick="check_coordinates()">Paso 2: Información</strong>
             </div>
             <div class='col4 center pad1 step-3'>
-                <strong>Paso 3: Completado</strong>
+                <strong>Paso 3: Creación</strong>
             </div>
         </div>
 
@@ -176,12 +178,15 @@
                 <div class='clearfix col12'>
                     <label for='notes'>Notas adicionales:</label>
                     <input id='notes' type='text' placeholder='Algo más a agregar, otra red social' />
+                    <p>Si tienes preguntas sobre estos campos, puedes visitar este <a
+                            href="https://wiki.openstreetmap.org/wiki/ES:Colombia/Gu%C3%ADa_para_mapear/sitios_educativos">de
+                            mapeo de instituciones educativas</a>.</p>
                 </div>
                 <div class='clearfix col12'>
                     <h5>
                         <p class='col12' id="form-invalid"></p>
                     </h5>
-                    <h4><button class='col12' id='collect-data-done'>Completado</button></h4>
+                    <h4><button class='col12' id='collect-data-done'>Crear nota en OSM</button></h4>
                 </div>
             </div>
             <p>Nota: Los datos del colegio en color gris son de ejemplo, y se borran automáticamente cuando digitas tus
@@ -197,8 +202,8 @@
             <p><span>Tus datos quedaron en una nota dentro del sistema. En el siguiente enlace puedes ver la nota recién
                     creada y estar atento a sus actualizaciones:</span><span id='linkcoords'>&nbsp;</span></p>
             <p>¿Sabías que tu mismo puedes agregar datos al mapa y evitar la espera?<br /> Es muy fácil comenzar a <a
-                    href="https://www.openstreetmap.org/edit?editor=id">editar OpenStreetMap</a> en tu navegador. Visita la página <a
-                    href='https://learnosm.org/es/'>learnosm.org</a>.</p>
+                    href="https://www.openstreetmap.org/edit?editor=id">editar OpenStreetMap</a> en tu navegador. Visita
+                la página <a href='https://learnosm.org/es/'>learnosm.org</a>.</p>
             <p><span>¿Quieres agregar otro establecimiento?</span>&nbsp;Vuelve a <a href="#location"
                     onclick="clearFields()">la pantalla inicial.</a>
             </p>
