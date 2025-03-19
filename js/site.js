@@ -4,7 +4,7 @@ mostrando y ocultando elementos.
 También permite hacer algunas pocas validaciones sobre los datos datos.
 Igualmente, maneja el mapa por medio de LeafLet.
 
-Version 2025-03-17
+Version 2025-03-19
 */
 
 /**
