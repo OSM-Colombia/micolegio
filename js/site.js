@@ -53,7 +53,7 @@ $("#use_my_location").click(function (e) {
 
             zoom_to_point(point, findme_map, findme_marker);
 
-            $('#success').html("<strong>¡Encontrado!</strong> Mueve la chincheta hasta que esté <strong>ubicado exactamente sobre tu colegio o escuela</strong>, preferiblemente en la mitad del establecimiento educativo.<br />Te recomendamos que hagas bastante zoom para ubicar la chincheta correctamente.<br />Cuando la hayas ubicado bien, puedes pasar a la siguiente sección:<br /> <a href='javascript:check_coordinates()'><strong>Paso 2:</strong> Agregar información del establecimiento educativo</a>.");
+            $('#success').html("<strong>¡Encontrado!</strong> Mueve la chincheta hasta que esté <strong>ubicada exactamente sobre tu colegio o escuela</strong>, preferiblemente en la mitad del establecimiento educativo.<br /><br />Te recomendamos que hagas bastante zoom para ubicar la chincheta correctamente.<br />Cuando la hayas ubicada bien, puedes pasar a la siguiente sección:<br /> <a href='javascript:check_coordinates()'><strong>Paso 2:</strong> Agregar información del establecimiento educativo</a>.");
             $('#success').show();
             window.scrollTo(0, $('#addressToFind').position().top - 30);
             $('.step-2 a').attr('href', '#details');
@@ -86,7 +86,7 @@ $("#find").submit(function (e) {
         if (data.length > 0) {
             zoom_to_point(data[0], findme_map, findme_marker);
 
-            $('#success').html("<strong>¡Encontrado!</strong> Mueve la chincheta hasta que esté <strong>ubicado exactamente sobre tu colegio o escuela</strong>, preferiblemente en el centro del establecimiento educativo.<br />Te recomendamos que hagas bastante zoom para ubicar la chincheta correctamente.<br />Cuando lo hayas ubicado bien, puedes pasar a la siguiente sección:<br /> <a href='javascript:check_coordinates()'><strong>Paso 2:</strong> Agregar información del establecimiento educativo</a>.");
+            $('#success').html("<strong>¡Encontrado!</strong> Mueve la chincheta hasta que esté <strong>ubicada exactamente sobre tu colegio o escuela</strong>, preferiblemente en el centro del establecimiento educativo.<br /><br />Te recomendamos que hagas bastante zoom para ubicar la chincheta correctamente.<br />Cuando la hayas ubicada bien, puedes pasar a la siguiente sección:<br /> <a href='javascript:check_coordinates()'><strong>Paso 2:</strong> Agregar información del establecimiento educativo</a>.");
             $('#success').show();
             window.scrollTo(0, $('#addressToFind').position().top - 30);
             $('.step-2 a').attr('href', '#details');
@@ -153,68 +153,113 @@ $("#collect-data-done").click(function () {
         "name=" + $("#institutionName").val() + "\n" +
         "address=" + $("#institutionAddress").val() + "\n";
 
-    if ($("#institutionPhone").val() == null) {
+    if ($("#institutionPhone").val() != "") {
         var note_body = note_body +
             "phone=" + $("#institutionPhone").val() + "\n";
     }
-    if ($("#website").val() == null) {
+    if ($("#website").val() != "") {
         var note_body = note_body +
             "website=" + $("#website").val() + "\n";
     }
-    if ($("#operator_type").val() == null) {
+    if ($("#institutionEmail").val() != "") {
         var note_body = note_body +
-            "operator:type=" + $("#operator_type").val() + "\n";
+            "email= " + $("#institutionEmail").val() + "\n";
     }
-    if ($("#operator").val() == null) {
+
+    var operator_type = $("input[name='operator_type']:radio:checked").val();
+    if (operator_type != null && operator_type != "unknown") {
+        var note_body = note_body +
+            "operator:type=" + operator_type + "\n";
+    }
+    if ($("#operator").val() != "") {
         var note_body = note_body +
             "operator=" + $("#operator").val() + "\n";
     }
-    if ($("#min_age").val() == null) {
+    if ($("#min_age").val() != "") {
         var note_body = note_body +
             "min_age=" + $("#min_age").val() + "\n";
     }
-    if ($("#max_age").val() == null) {
+    if ($("#max_age").val() != "") {
         var note_body = note_body +
             "max_age=" + $("#max_age").val() + "\n";
     }
-    if ($("#service_times:ref:CO").val() == null) {
+    var calendario = $("input[name='service_times:ref:CO']:checked").val();
+    if (calendario != null && calendario != "unknown") {
         var note_body = note_body +
-            "service_times:ref:CO=" + $("#service_times:ref:CO").val() + "\n";
+            "service_times:ref:CO=" + calendario + "\n";
     }
-    if ($("#religion").val() == null) {
+    if ($("#religion").val() != "") {
         var note_body = note_body +
             "religion=" + $("#religion").val() + "\n";
     }
 
-    if ($("#institutionEmail").val() == null) {
-        var note_body = note_body +
-            "email: " + $("#institutionEmail").val() + "\n";
+    var min_level = -1;
+    var max_level = 7;
+    var level0 =$("input[name='isced:level-0']:checked").val();
+    var level1 =$("input[name='isced:level-1']:checked").val();
+    var level2 =$("input[name='isced:level-2']:checked").val();
+    var level3 =$("input[name='isced:level-3']:checked").val();
+    var level4 =$("input[name='isced:level-4']:checked").val();
+    if (level0) {
+        if (min_level == -1) {
+            var min_level = 0;
+        }
+        max_level = 0;
     }
-    if ($("#isced:level").val() == null) {
-        var note_body = note_body +
-            "isced:level=" + $("#isced:level").val() + "\n";
+    if (level1) {
+        if (min_level == -1) {
+            var min_level = 1;
+        }
+        max_level = 1;
     }
-    if ($("#gender").val() == null) {
-        var note_body = note_body +
-            "gender=" + $("#gender").val() + "\n";
+    if (level2) {
+        if (min_level == -1) {
+            var min_level = 2;
+        }
+        max_level = 2;
     }
-    if ($("#fee").val() == null) {
-        var note_body = note_body +
-            "fee=" + $("#fee").val() + "\n";
+    if (level3) {
+        if (min_level == -1) {
+            var min_level = 3;
+        }
+        max_level = 3;
     }
-    if ($("#language").val() == null) {
+    if (level4) {
+        if (min_level == -1) {
+            var min_level = 4;
+        }
+        max_level = 4;
+    }
+    if (min_level != -1 && max_level != 7) {
+        var note_body = note_body +
+            "isced:level=" + min_level + "-" + max_level;
+    }
+    if ($("#female").is(":checked")) {
+        var note_body = note_body +
+            "female=yes\n";
+    }
+    if ($("#male").is(":checked")) {
+        var note_body = note_body +
+            "male=yes\n";
+    }
+    if ($("#fee").is(":checked")) {
+        var note_body = note_body +
+            "fee=yes\n";
+    }
+    if ($("#language").val() != "") {
         var note_body = note_body +
             "language=" + $("#language").val() + "\n";
     }
-    if ($("#wikipedia").val() == null) {
+    if ($("#wikipedia").val() != "") {
         var note_body = note_body +
             "wikipedia=" + $("#wikipedia").val() + "\n";
     }
-    if ($("#wikidata").val() == null) {
+    if ($("#wikidata").val() != "") {
         var note_body = note_body +
             "wikidata=" + $("#wikidata").val() + "\n";
     }
-    if ($("#notes").val() == null) {
+    var note_body = note_body + "\n";
+    if ($("#notes").val() != "") {
         var note_body = note_body +
             "Notas: " + $("#notes").val() + "\n";
     }
@@ -223,8 +268,8 @@ $("#collect-data-done").click(function () {
         "Revisar school=*.\n" +
         "Adaptar grades=*.\n" +
         "En el caso de religión, adaptar denomination=*.\n" +
-        "#OSM-Colombia https://osm-colombia.github.io/micolegio/\n"+
-        "#AC3 #CO\n",
+        "\n" +
+        "#CO #OSM-Colombia #AC3 https://osm-colombia.github.io/micolegio/\n",
         latlon = findme_marker.getLatLng(),
         note_data = {
             lat: latlon.lat,
@@ -233,7 +278,7 @@ $("#collect-data-done").click(function () {
         };
 
     // Imprime en consola el contenido de la nota.
-    console.log(note_body);
+    // console.log(note_body);
 
 
     // Crea la nota por medio de un la generación de la URL.
@@ -267,7 +312,8 @@ function clearFields() {
     $("#institutionAddress").val('');
     $("#institutionEmail").val('');
     $("#isced:level").val('');
-    $("#gender").val('');
+    $("#female").val('');
+    $("#male").val('');
     $("#fee").val('');
     $("#language").val('');
     $("#wikipedia").val('');

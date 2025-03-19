@@ -29,19 +29,20 @@
 <body>
     <div class='container pad2 margin2 col8'>
         <div class="pad2">
-            <a href="https://osm-colombia.github.io/micolegio/">
-                <h2 class="app-title">Agrega tu escuela o colegio a OpenStreetMap</h2>
-            </a>
-            <img src="img/osm-colombia.png" class="fl mr logo" alt="OpenStreetMap" width="10%" />
+            <h2 class="app-title">Agrega tu escuela o colegio a OpenStreetMap</h2>
+
+            <a href="https://wiki.openstreetmap.org/wiki/ES:Colombia"> <img src="img/osm-colombia.png"
+                    class="fl mr logo" alt="OpenStreetMap" width="10%" /></a>
             <p><i>MiColegio</i> es una herramienta para solicitar la inserción o corrección de un establecimiento
                 educativo de <a href="https://wiki.openstreetmap.org/wiki/ES:Colombia">Colombia</a> en el mapa <a
                     href="https://www.openstreetmap.org/#map=6/4.60/-73.39">OpenStreetMap</a>.</p>
             <p>OpenStreetMap es un mapa global y abierto, utilizado por millones de personas en todo el mundo. Tu
                 colegio o escuela también puede aparecer en este mapa.</p>
+            <p>Anímate a formar parte de esta comunidad de contribuidores, y visualiza tu colegio a nivel mundial.</p>
             <p>Añadir al mapa tu institución educativa es fácil, gratuito e innovador. Solo tienes que llenar este
                 formulario de tres pasos y los voluntarios crearán tu <a
-                    href="https://wiki.openstreetmap.org/wiki/ES:Colombia/Gu%C3%ADa_para_mapear/sitios_educativos">educativa
-                    en el mapa</a>.</p>
+                    href="https://wiki.openstreetmap.org/wiki/ES:Colombia/Gu%C3%ADa_para_mapear/sitios_educativos">institutción
+                    educativa en el mapa</a>.</p>
         </div>
         <!--
         Los tres pasos se definen en la URL, en la variable location.hash:
@@ -106,18 +107,29 @@
                 valores en gris en los campos son ejemplos.</p>
             <div class='col12'>
                 <div class='col6'>
-                    <label for='institutionName'>Nombre de la institución (Obligatoria):</label>
+                    <label for='institutionName'>Nombre de la institución (Obligatorio):</label>
                     <input id='institutionName' type='text' placeholder='Institución Educativa Rafael Uribe Uribe' />
                     <label for='institutionPhone'>Número de teléfono:</label>
                     <input id='institutionPhone' type='text' placeholder='608 6388262' />
                     <label for='website'>Página web:</label>
                     <input id='website' type='text' placeholder='http://RafaelUribeUribePore.edu.co' />
-                    <br />
+                </div>
+                <div class='col6'>
+                    <label for='institutionAddress'>Dirección completa con municipio (Obligatoria):</label>
+                    <input id='institutionAddress' type='text' placeholder='Calle 4A # 17-40, Pore, Casanare' />
+                    <label for='institutionEmail'>Correo electrónico:</label>
+                    <input id='institutionEmail' type='text' placeholder='contacto@RafaelUribeUribePore.edu.co' />
+                </div>
+            </div>
+            <div class='clearfix col12'>
+                <div class='col6'>
                     Tipo de operador:
                     <input id='public' type='radio' name='operator_type' value="public" />
                     <label for='public'>Público</label>.
                     <input id='private' type='radio' name='operator_type' value="private" />
                     <label for='private'>Privado</label>.
+                    <input id='unknown' type='radio' name='operator_type' value="unknown" checked="checked" />
+                    <label for='unknown'>Desconocido</label>.
                     <br />
                     <label for='operator'>Nombre operador:</label>
                     <input id='operator' type='text' placeholder='Secretaría de Educación de Casanare' />
@@ -130,36 +142,32 @@
                     <br />
                     Calendario académico:
                     <input id="calendarioA" type="radio" name="service_times:ref:CO" value="A" />
-                    <label for='calendarioA'>Calendario A.</label>
+                    <label for='calendarioA'>Calendario A</label>.
                     <input id="calendarioB" type="radio" name="service_times:ref:CO" value="B" />
-                    <label for='calendarioB'>Calendario B.</label>
+                    <label for='calendarioB'>Calendario B</label>.
+                    <input id="unknown" type="radio" name="service_times:ref:CO" value="unknown" checked="checked" />
+                    <label for='unknown'>Desconocido</label>.
                     <br />
                     <label for='religion'>Si tiene enfoque religioso, ¿cuál religión?:</label>
                     <input id='religion' type='text' placeholder='Católica' />
                 </div>
                 <div class='col6'>
-                    <label for='institutionAddress'>Dirección completa con municipio (Obligatoria):</label>
-                    <input id='institutionAddress' type='text' placeholder='Calle 4A # 17-40, Pore, Casanare' />
-                    <br />
-                    <label for='institutionEmail'>Correo electrónico:</label>
-                    <input id='institutionEmail' type='text' placeholder='contacto@RafaelUribeUribePore.edu.co' />
-                    <br />
                     Grados:
-                    <input id="level1" type="checkbox" name="isced:level" value="0" />
+                    <input id="level1" type="checkbox" name="isced:level-0" value="0" />
                     <label for='level1'>Primera infancia o Preescolar</label>.
-                    <input id="level3" type="checkbox" name="isced:level" value="1" />
+                    <input id="level3" type="checkbox" name="isced:level-1" value="1" />
                     <label for='level3'>Básica primaria</label>.
-                    <input id="level4" type="checkbox" name="isced:level" value="2" />
+                    <input id="level4" type="checkbox" name="isced:level-2" value="2" />
                     <label for='level4'>Básica secundaria</label>.
-                    <input id="level5" type="checkbox" name="isced:level" value="3" />
+                    <input id="level5" type="checkbox" name="isced:level-3" value="3" />
                     <label for='level5'>Media</label>.
-                    <input id="level6" type="checkbox" name="isced:level" value="4" />
+                    <input id="level6" type="checkbox" name="isced:level-4" value="4" />
                     <label for='level6'>Normalista</label>.
                     <br />
                     Género de los estudiantes:
-                    <input id="female" type="checkbox" name="gender" value="yes" />
+                    <input id="female" type="checkbox" name="female" value="yes" />
                     <label for='female'>Femenino</label>.
-                    <input id="male" type="checkbox" name="gender" value="yes" />
+                    <input id="male" type="checkbox" name="male" value="yes" />
                     <label for='male'>Masculino</label>.
                     <br />
                     ¿Se paga matrícula?:
