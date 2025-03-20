@@ -192,9 +192,7 @@ sup {
   bottom:1em;
   }
 
-label {
-  display:block;
-  }
+
 select,
 textarea,
 input[type=text] {
