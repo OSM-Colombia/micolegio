@@ -3,25 +3,12 @@ a {
     color:darkred !important;
 }
 
-.fillL {
-    background:#f4f4ff;
-}
-
-#map {
-    height:400px;
-}
-
 #findme-map {
     height:300px;
 }
 
 .loading {
     background: url('../img/loading.gif') left top;
-}
-
-.note-debug {
-    border-bottom:1px solid #eee;
-    font-family: monospace;
 }
 
 a.load {
@@ -79,7 +66,7 @@ button {
 }
 
 footer {
-    margin-top: 10em;
+    margin-top: 3em;
     font-size: 80%;
 }
 
