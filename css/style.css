@@ -255,51 +255,6 @@ input[type=submit] {
     position:relative;
     top:1px;
     }
-
-table {
-  width:100%;
-  background-color:transparent;
-  border-collapse:collapse;
-  border-spacing:0;
-  margin-bottom:20px;
-  table-layout:fixed;
-  }
-  th,
-  td {
-    padding:4px 0;
-    line-height:20px;
-    text-align:left;
-    vertical-align:top;
-    border-bottom:1px solid #d5d5d5;
-    }
-  th {
-    font-weight:bold;
-    }
-  thead th {
-    vertical-align:bottom;
-    color:#57594D;
-    }
-
-/* Read content styling */
-.prose ul {
-  list-style:disc;
-  margin-left:40px;
-  }
-.prose ol {
-  list-style:decimal;
-  }
-.prose p {
-  margin:0 0 10px;
-  }
-
-.icon {
-  background:transparent url(img/sprite.png) no-repeat 0 0;
-  display:block;
-  width:30px;
-  height:30px;
-  text-indent:-999em;
-  }
-
 /* Layout
 ------------------------------------------------------- */
 .container {
