@@ -123,13 +123,13 @@
             </div>
             <div class='clearfix col12'>
                 <div class='col6'>
-                    Tipo de operador:
+                    Tipo de operador:<br />
                     <input id='public' type='radio' name='operator_type' value="public" />
-                    <label for='public'>Público</label>.
+                    <label for='public'>Público</label>.<br />
                     <input id='private' type='radio' name='operator_type' value="private" />
-                    <label for='private'>Privado</label>.
-                    <input id='unknown' type='radio' name='operator_type' value="unknown" checked="checked" />
-                    <label for='unknown'>Desconocido</label>.
+                    <label for='private'>Privado</label>.<br />
+                    <input id='unknown_operator' type='radio' name='operator_type' value="unknown" checked="checked" />
+                    <label for='unknown_operator'>Desconocido</label>.
                     <br />
                     <label for='operator'>Nombre operador:</label>
                     <input id='operator' type='text' placeholder='Secretaría de Educación de Casanare' />
@@ -140,64 +140,63 @@
                     <label for='max_age'>Edad máxima del estudiante (años):</label>
                     <input id='max_age' type='text' placeholder='18' />
                     <br />
-                    Calendario académico:
+                    Calendario académico:<br />
                     <input id="calendarioA" type="radio" name="service_times:ref:CO" value="A" />
-                    <label for='calendarioA'>Calendario A</label>.
+                    <label for='calendarioA'>Calendario A</label>.<br />
                     <input id="calendarioB" type="radio" name="service_times:ref:CO" value="B" />
-                    <label for='calendarioB'>Calendario B</label>.
-                    <input id="unknown" type="radio" name="service_times:ref:CO" value="unknown" checked="checked" />
-                    <label for='unknown'>Desconocido</label>.
+                    <label for='calendarioB'>Calendario B</label>.<br />
+                    <input id="unknown_calendar" type="radio" name="service_times:ref:CO" value="unknown" checked="checked" />
+                    <label for='unknown_calendar'>Desconocido</label>.
                     <br />
                     <label for='religion'>Si tiene enfoque religioso, ¿cuál religión?:</label>
                     <input id='religion' type='text' placeholder='Católica' />
                 </div>
                 <div class='col6'>
-                    Grados:
+                    <input id="fee" type="checkbox" name="fee" value="yes" />
+                    <label for='fee'>Marcar si se paga matrícula</label>.
+                    <br />
+                    Grados:<br />
                     <input id="level1" type="checkbox" name="isced:level-0" value="0" />
-                    <label for='level1'>Primera infancia o Preescolar</label>.
+                    <label for='level1'>Primera infancia o Preescolar</label>.<br />
                     <input id="level3" type="checkbox" name="isced:level-1" value="1" />
-                    <label for='level3'>Básica primaria</label>.
+                    <label for='level3'>Básica primaria</label>.<br />
                     <input id="level4" type="checkbox" name="isced:level-2" value="2" />
-                    <label for='level4'>Básica secundaria</label>.
+                    <label for='level4'>Básica secundaria</label>.<br />
                     <input id="level5" type="checkbox" name="isced:level-3" value="3" />
-                    <label for='level5'>Media</label>.
+                    <label for='level5'>Media</label>.<br />
                     <input id="level6" type="checkbox" name="isced:level-4" value="4" />
                     <label for='level6'>Normalista</label>.
                     <br />
-                    Género de los estudiantes:
+                    Género de los estudiantes:<br />
                     <input id="female" type="checkbox" name="female" value="yes" />
-                    <label for='female'>Femenino</label>.
+                    <label for='female'>Femenino</label>.<br />
                     <input id="male" type="checkbox" name="male" value="yes" />
                     <label for='male'>Masculino</label>.
                     <br />
-                    ¿Se paga matrícula?:
-                    <input id="fee" type="checkbox" name="fee" value="yes" />
-                    <label for='fee'>Si se paga matrícula.</label>.
                     <br />
                     <label for='language'>Si se considera un colegio bilingüe, con qué idioma:</label>
-                    <input id='language' type='text' placeholder='inglés' />
-                    <br />
+                    <input id='language' type='text' placeholder='inglés' /><br />
                     <label for='wikipedia'>¿El colegio o escuela tiene un artículo de wikipedia?</label>
                     <input id='wikipedia' type='text' placeholder='Colegio Rafael Uribe Uribe (Pore)' />
                     <br />
                     <label for='wikidata'>¿El colegio o escuela tiene una entrada en wikidata?</label>
                     <input id='wikidata' type='text' placeholder='Q116243968' />
                 </div>
-                <div class='clearfix col12'>
-                    <label for='notes'>Notas adicionales:</label>
-                    <input id='notes' type='text' placeholder='Algo más a agregar, otra red social' />
-                    <p>Si tienes preguntas sobre estos campos, puedes visitar este <a
-                            href="https://wiki.openstreetmap.org/wiki/ES:Colombia/Gu%C3%ADa_para_mapear/sitios_educativos">de
-                            mapeo de instituciones educativas</a>.</p>
-                </div>
-                <div class='clearfix col12'>
-                    <h5>
-                        <p class='col12' id="form-invalid"></p>
-                    </h5>
-                    <h4><button class='col12' id='collect-data-done'>Crear nota en OSM</button></h4>
-                </div>
             </div>
-            <p>Nota: Los datos del colegio en color gris son de ejemplo, y se borran automáticamente cuando digitas tus
+            <div class='col12 center'>
+                <label for='notes'>Notas adicionales:</label>
+                <input id='notes' type='text' placeholder='¿Algo más a agregar? ¿Alguna red social?' />
+            </div>
+            <div class='clearfix col12'>
+                <p>Si tienes preguntas sobre estos campos, puedes visitar este artículo de <a
+                        href="https://wiki.openstreetmap.org/wiki/ES:Colombia/Gu%C3%ADa_para_mapear/sitios_educativos">de
+                        mapeo de instituciones educativas</a>.</p>
+                <h5>
+                    <p class='col12' id="form-invalid"></p>
+                </h5>
+                <h4><button class='col12' id='collect-data-done'>Crear nota en OSM</button></h4>
+            </div>
+            <p>Ojo: Los datos del colegio en color gris son de ejemplo, y se borran automáticamente cuando digitas tus
                 propios datos.</p>
             <p>Si no tienes todos los datos de tu institución, ¡no importa! Para crear la solicitud solo se requiere el
                 nombre y su dirección, lo demás es opcional.</p>
@@ -216,20 +215,20 @@
                     onclick="clearFields()">la pantalla inicial.</a>
             </p>
         </div>
-
-        <footer>
-            <p class="center">Si tienes alguna pregunta, puedes escribirnos a <a
-                    href='mailto:inbox@ac3.org.co'>inbox@ac3.org.co</a></p>
-            <p class="center">Puedes seguirnos en <a href="https://www.linkedin.com/company/osmcolombia/">LinkedIn</a>,
-                <a href="https://twitter.com/OSM_Colombia">X/Twitter</a> o <a
-                    href="https://www.instagram.com/OSM_Colombia/">Instagram</a>.
-            </p>
-            <p class="center">Código fuente disponible en <a alt="Repositorio código"
-                    href='https://github.com/OSM-Colombia/micolegio'>GitHub</a>. Esta página es una bifurcación de <a
-                    alt="Sitio original" href='https://www.onosm.org/'>OnOSM.org</a>.</p>
-        </footer>
-    </div>
-    <script src='js/site.js'></script>
+        <div>
+            <footer>
+                <p class="center">Si tienes alguna pregunta, puedes escribirnos a <a
+                        href='mailto:inbox@ac3.org.co'>inbox@ac3.org.co</a><br />
+                    Puedes seguirnos en <a href="https://www.linkedin.com/company/osmcolombia/">LinkedIn</a>,
+                    <a href="https://twitter.com/OSM_Colombia">X/Twitter</a> o <a
+                        href="https://www.instagram.com/OSM_Colombia/">Instagram</a>.
+                    <br />Código fuente disponible en <a alt="Repositorio código"
+                        href='https://github.com/OSM-Colombia/micolegio'>GitHub</a>. Esta página es una bifurcación de
+                    <a alt="Sitio original" href='https://www.onosm.org/'>OnOSM.org</a>.
+                </p>
+            </footer>
+        </div>
+        <script src='js/site.js'></script>
 </body>
 
 </html>
